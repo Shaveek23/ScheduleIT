@@ -1,0 +1,1 @@
+ dotnet-ef migrations add "#TODO:MIGRATION_NAME" --context ScheduleITDbContext -p ScheduleIT.Persistence -s ScheduleIT

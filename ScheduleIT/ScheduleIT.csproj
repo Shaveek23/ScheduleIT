@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <UserSecretsId>90bca8bb-b832-4909-ac54-f28ae3a67e77</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ScheduleIT.Application\ScheduleIT.Application.csproj" />
+    <ProjectReference Include="..\ScheduleIT.Contracts\ScheduleIT.Contracts.csproj" />
+    <ProjectReference Include="..\ScheduleIT.Domain\ScheduleIT.Domain.csproj" />
+    <ProjectReference Include="..\ScheduleIT.Infrastructure\ScheduleIT.Infrastructure.csproj" />
+    <ProjectReference Include="..\ScheduleIT.Persistence\ScheduleIT.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

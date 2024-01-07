@@ -1,0 +1,46 @@
+version: "3.7"
+services:
+  schedule-it:
+    container_name: schedule-it
+    build:
+      context: .
+      dockerfile:  ScheduleIT/Dockerfile
+    restart: always
+    depends_on: 
+      - db-server
+      - rabbit-mq
+    ports:
+      - "8080:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+    networks:
+      - scheduleit-net
+  db-server:
+    container_name: db-server
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    volumes:
+      - scheduleit-data:/var/opt/mssql
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "super_strong_password_123"
+      MSSQL_DB_NAME: "master"
+    networks:
+      - scheduleit-net
+  rabbit-mq:
+    container_name: rabbitmq
+    image: rabbitmq:3.8.9-management
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - scheduleit-net
+
+volumes:
+  scheduleit-data:
+
+networks:
+  scheduleit-net:
+    driver: bridge
