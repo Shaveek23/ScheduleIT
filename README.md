@@ -14,6 +14,10 @@ The domain of ScheduleIT revolves around several aggregate roots:
   
 - **Project:** Represents a project assigned to a team with tasks created by team members.
 
+![image](https://github.com/Shaveek23/ScheduleIT/assets/29927221/ecf8c73b-3562-487a-9989-8b0c8f0172ab)
+
+
+
 ## Use Cases
 
 The project implements various use cases, including:
@@ -46,18 +50,42 @@ Unit tests are written using `xUnit`, with `FluentAssertions` for clear and expr
 
 ### Event Handling
 
-For `domain events`, the `outbox pattern` is utilized, persisting events in a database. `Integration events`, meant for external systems, are handled using `RabbitMQ` as the message broker.
+For `domain events`, the `outbox pattern` is utilized, persisting events in a database and then publishing them via MediatR with a background `Quartz` job. `Integration events`, meant for external systems, are handled using `RabbitMQ` as the message broker.
 
 ## Getting Started
 
 To run the ScheduleIT project locally, you need `Docker`.
-Please, follow these steps:
+(or... `Open Project` in `Visual Studio`, set `'docker-compose'` as a startup project and run.
+You will see the `SwaggerUI` page to test the API)
 
+If you want to start the application without `Visual Studio` please follow these steps:
    ```bash
    git clone https://github.com/Shaveek23/ScheduleIT.git
    cd ScheduleIT
    docker-compose up --build
   ```
-or...
+If you decide to rerun the app and want to start with a fresh database, you can remove the data volumes using the following command:
+   ```bash
+   docker-compose down --volumes
+   docker-compose up --build
+  ```
 
-Open Project in `Visual Studio`, set `'docker-compose'` as a startup project and run.
+Now open, e.g., `Postman` and `register` a new user and obtain an authentication token to include in the headers of subsequent requests.
+
+![image](https://github.com/Shaveek23/ScheduleIT/assets/29927221/be08e5ee-6ca2-4ae4-9433-76669670fc06)
+
+
+You can explore by providing an invalid email or password to verify that the validation is working.
+
+After successfully registering a new employee, experiment with creating new teams.
+Please remember to include the token.
+![image](https://github.com/Shaveek23/ScheduleIT/assets/29927221/7328ad74-5805-44dd-8b81-c9eeabc0f9d1)
+
+![image](https://github.com/Shaveek23/ScheduleIT/assets/29927221/f8565bc9-1eda-40a9-b67a-057d4ecdcc1e)
+
+
+Try creating another team to see that a given employee can create only one team.
+
+If you want to, you can examine the database and the `RabbitMQ` to see that the integration event has been published.
+To do that, you need to access the terminal of the specific Docker containers.
+  
